@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Pro Scanner — Live Crypto Futures Signals{% endblock %}</title>
+<meta name="description" content="{% block description %}Pro Scanner scans USDT-M futures around the clock and surfaces high-confidence long/short setups using trend, momentum, candlestick and chart-pattern confirmation.{% endblock %}">
+<meta name="robots" content="{% block robots %}index, follow{% endblock %}">
+<link rel="canonical" href="{% block canonical %}{{ canonical_url }}{% endblock %}">
+<meta name="theme-color" content="#0D0E12">
+<meta name="author" content="Pro Scanner">
+
+<!-- Favicons / app icons -->
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16x16.png') }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/apple-touch-icon.png') }}">
+<link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pro Scanner">
+<meta property="og:title" content="{% block og_title %}{{ self.title() }}{% endblock %}">
+<meta property="og:description" content="{% block og_description %}{{ self.description() }}{% endblock %}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:image" content="{% block og_image %}{{ default_og_image }}{% endblock %}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ self.og_title() }}">
+<meta name="twitter:description" content="{{ self.og_description() }}">
+<meta name="twitter:image" content="{{ self.og_image() }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+<!-- Structured data: Organization + WebSite (site-wide) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Pro Scanner",
+  "url": "{{ site_url }}/",
+  "logo": "{{ site_url }}{{ url_for('static', filename='img/android-chrome-512x512.png') }}"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Pro Scanner",
+  "url": "{{ site_url }}/"
+}
+</script>
+
+{% block head_extra %}{% endblock %}
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="{{ url_for('home') }}" class="brand">
+      <span class="brand-mark"><img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Pro Scanner logo" width="34" height="34"></span>
+      Pro Scanner
+    </a>
+    <nav class="main-nav" id="mainNav">
+      <a href="{{ url_for('home') }}" class="{{ 'active' if active=='home' else '' }}">Home</a>
+      <a href="{{ url_for('about') }}" class="{{ 'active' if active=='about' else '' }}">About</a>
+      <a href="{{ url_for('signals') }}" class="{{ 'active' if active=='signals' else '' }}">Signals</a>
+      <a href="{{ url_for('pricing') }}" class="{{ 'active' if active=='pricing' else '' }}">Pricing</a>
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('dashboard') }}" class="nav-auth-mobile">Dashboard</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="nav-auth-mobile">Login &amp; Signup</a>
+      {% endif %}
+    </nav>
+    <div class="header-cta">
+      {% if current_user.is_authenticated %}
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary btn-sm">Dashboard</a>
+      {% else %}
+        <a href="{{ url_for('login') }}" class="btn btn-primary btn-sm">Login &amp; Signup</a>
+      {% endif %}
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="flash-wrap">
+      {% for category, msg in messages %}
+        <div class="flash-msg {{ 'flash-err' if category=='err' else 'flash-ok' }}">{{ msg }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+<main>
+{% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="{{ url_for('home') }}" class="brand" style="font-size:18px;">
+          <span class="brand-mark" style="width:28px;height:28px;"><img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Pro Scanner logo" width="28" height="28"></span>
+          Pro Scanner
+        </a>
+        <p>Real-time futures scanning with rule-based technical signals. Built for traders who want the data, not the guesswork.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('signals') }}">Signals</a>
+        <a href="{{ url_for('pricing') }}">Pricing</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="{{ url_for('terms') }}">Terms &amp; Conditions</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="{{ url_for('about') }}#contact">Contact Us</a>
+        <a href="{{ url_for('home') }}#testimonials">Testimonials</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Pro Scanner. All rights reserved.</span>
+      <span>Not financial advice. Trade at your own risk.</span>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

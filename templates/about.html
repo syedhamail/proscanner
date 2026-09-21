@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}About Us — Pro Scanner{% endblock %}
+{% block description %}Learn how Pro Scanner's rule-based scanning engine works — trend, momentum, candlestick and chart-pattern confirmation on every futures trading signal.{% endblock %}
+{% set active = 'about' %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <span class="section-tag">// ABOUT PRO SCANNER</span>
+    <h1>We built the scanner we wished existed.</h1>
+    <p>Pro Scanner exists to remove the manual, repetitive part of technical analysis — checking coin after coin for the same setup — and hand you a clean, ranked list instead.</p>
+  </div>
+</section>
+
+<div class="wrap doc-body">
+  <h2>Our story</h2>
+  <p>Pro Scanner began as a personal tool: a script to check whether the coins on a watchlist matched a specific RSI/MACD/moving-average setup before every trading session. As the watchlist grew into "every USDT-M futures pair," the script grew into a proper scanning engine — one that runs the same logic consistently, without fatigue, bias, or missed coins.</p>
+  <p>Today that engine powers the Signals page on this site: it pulls live 4-hour, 1-hour and 15-minute candles for the top pairs by volume, checks trend and momentum, optionally confirms with candlestick and chart-pattern recognition, and only surfaces setups that clear a high confidence bar.</p>
+
+  <h2>What we believe</h2>
+  <p>Trading tools should show their work. Every signal on Pro Scanner traces back to a specific, inspectable rule — not a black box. We'd rather show you fewer setups that meet a clear bar than flood you with noise.</p>
+
+  <div class="value-grid">
+    <div class="value-card">
+      <div class="icon">◆</div>
+      <h3>Consistency</h3>
+      <p>The same rules are applied to every coin, every scan — no favorites, no fatigue.</p>
+    </div>
+    <div class="value-card">
+      <div class="icon">◈</div>
+      <h3>Transparency</h3>
+      <p>Every signal shows the entry, stop, target and the exact pattern that triggered it.</p>
+    </div>
+    <div class="value-card">
+      <div class="icon">◇</div>
+      <h3>Control</h3>
+      <p>Pick how many pairs to scan and run it whenever you want — the same full confirmation logic every time.</p>
+    </div>
+  </div>
+
+  <h2>A tool, not a promise</h2>
+  <p>No scanner can predict the market. Pro Scanner is a technical-analysis tool that highlights setups matching defined rules — it does not guarantee outcomes, and it isn't financial advice. Risk management is always on you.</p>
+
+  <h2 id="contact">Get in touch</h2>
+  <p>Have a question about how a signal is generated, or a feature you'd like to see? Use the <a href="{{ url_for('home') }}#contact" style="color:var(--accent)">contact form on the home page</a> and we'll reply directly.</p>
+</div>
+{% endblock %}

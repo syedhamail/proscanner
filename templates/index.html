@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}Pro Scanner — Live USDT-M Futures Trading Signals{% endblock %}
+{% block description %}Pro Scanner scans the USDT-M futures market around the clock and surfaces high-confidence long/short trade setups with entry, stop-loss and take-profit levels.{% endblock %}
+{% set active = 'home' %}
+
+{% block content %}
+
+<section class="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="wrap">
+    <div class="hero-content">
+      <span class="hero-eyebrow">// LIVE ON USDT-M FUTURES</span>
+      <h1>Trade with data, not <span class="accent-underline">guesswork<svg viewBox="0 0 200 14" preserveAspectRatio="none"><path d="M2 10 Q 50 2, 100 8 T 198 6" stroke="#2962FF" stroke-width="4" fill="none" stroke-linecap="round"/></svg></span>.</h1>
+      <p class="lead">Pro Scanner watches every major USDT pair around the clock, running the same indicator, candlestick and chart-pattern logic across the whole market — so you see the setup the moment it forms.</p>
+      <div class="hero-actions">
+        <a href="{{ url_for('signals') }}" class="btn btn-primary">Open the Scanner</a>
+        <a href="{{ url_for('signup') }}" class="btn btn-ghost">Create Free Account</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num">200+</div><div class="lbl">Pairs monitored</div></div>
+        <div class="stat"><div class="num">3</div><div class="lbl">Timeframes cross-checked</div></div>
+        <div class="stat"><div class="num">24/7</div><div class="lbl">Always scanning</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about-preview">
+  <div class="wrap about-grid">
+    <div class="about-copy reveal">
+      <span class="section-tag">// ABOUT US</span>
+      <h2>Built by traders, for traders who scan the market for a living.</h2>
+      <p>Pro Scanner started as an internal tool to save hours of manual chart-checking. It now scans the entire USDT-M futures market, cross-referencing trend, momentum and price-action in one pass, so you only see the coins actually worth looking at.</p>
+      <ul class="about-points">
+        <li><span class="check">✓</span> Rule-based logic — the same criteria applied to every coin, every time.</li>
+        <li><span class="check">✓</span> Trend, momentum and price-action cross-checked before a signal is shown.</li>
+        <li><span class="check">✓</span> Candlestick + chart-pattern confirmation layered on top of the core indicators.</li>
+      </ul>
+      <a href="{{ url_for('about') }}" class="btn btn-ghost">See more about us</a>
+    </div>
+    <div class="about-visual reveal">
+      <svg class="mini-chart" viewBox="0 0 400 220" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="gradFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2962FF" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#2962FF" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M0 160 L30 140 L60 150 L90 100 L120 120 L150 70 L180 90 L210 60 L240 80 L270 40 L300 55 L330 20 L360 45 L400 10 L400 220 L0 220 Z" fill="url(#gradFill)"/>
+        <path d="M0 160 L30 140 L60 150 L90 100 L120 120 L150 70 L180 90 L210 60 L240 80 L270 40 L300 55 L330 20 L360 45 L400 10" fill="none" stroke="#2962FF" stroke-width="2.5"/>
+      </svg>
+      <div class="kpi-row">
+        <div class="kpi"><div class="val" style="color:var(--buy)">68%</div><div class="lbl">Long setups this week</div></div>
+        <div class="kpi"><div class="val" style="color:var(--sell)">32%</div><div class="lbl">Short setups this week</div></div>
+        <div class="kpi"><div class="val">90%+</div><div class="lbl">Confidence floor</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="market-band">
+  <div class="ticker-track" id="tickerTrack"></div>
+  <div class="wrap">
+    <span class="pill"><span class="dot"></span> USDT-M Futures · Always On</span>
+    <h2>The engine never stops scanning.</h2>
+    <p>Trend, momentum, candlestick and chart-pattern checks run continuously across the market — the moment a setup clears the confidence bar, it lands on the Signals page.</p>
+    <div class="pulse-line">
+      <svg viewBox="0 0 640 90" preserveAspectRatio="none">
+        <path class="pulse-path" d="M0 45 L80 45 L100 15 L120 75 L140 25 L160 65 L180 45 L260 45 L280 10 L300 80 L320 45 L640 45"
+              fill="none" stroke="#2962FF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <a href="{{ url_for('signals') }}" class="btn btn-primary">Open the Scanner</a>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-tag">// WHAT TRADERS SAY</span>
+      <h2>Trusted by people who watch charts all day.</h2>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"I used to keep fifteen tabs open just to scan the top coins. Pro Scanner does that pass for me in seconds, and the confidence score alone has saved me from a few bad entries."</p>
+        <div class="testimonial-person">
+          <div class="avatar">AR</div>
+          <div class="who"><div class="name">Ahmed R.</div><div class="role">Futures trader, 3 years</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"It's the one tab I actually keep open all day. Clean list, clear entry and stop levels, no clutter to dig through."</p>
+        <div class="testimonial-person">
+          <div class="avatar">SK</div>
+          <div class="who"><div class="name">Sara K.</div><div class="role">Swing trader</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Chart pattern confirmation on top of the indicators is the part most scanners skip. This one doesn't, and it shows in how few false signals I get."</p>
+        <div class="testimonial-person">
+          <div class="avatar">BH</div>
+          <div class="who"><div class="name">Bilal H.</div><div class="role">Full-time crypto trader</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="contact-info reveal">
+      <span class="section-tag">// GET IN TOUCH</span>
+      <h2>Questions, feedback or a feature request?</h2>
+      <p>Send us a message and we'll get back to you directly — whether it's about the scanner, a bug, or something you'd like to see added.</p>
+      <div class="info-row">
+        <div>
+          <div class="lbl">RESPONSE TIME</div>
+          <div class="val">Usually within 24 hours</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div>
+          <div class="lbl">WHAT TO INCLUDE</div>
+          <div class="val">Your name, a working email, and as much detail as you can.</div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form reveal" id="contactForm">
+      <div class="field">
+        <label for="cf-name">Name</label>
+        <input type="text" id="cf-name" name="name" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="cf-email">Email</label>
+        <input type="email" id="cf-email" name="email" placeholder="you@example.com" required>
+      </div>
+      <div class="field">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" placeholder="How can we help?" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" id="cf-submit" style="width:100%;">Send Message</button>
+      <div class="form-status" id="cf-status"></div>
+    </form>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/contact.js') }}"></script>
+{% endblock %}

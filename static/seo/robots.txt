@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /admin
+Disallow: /api/
+Disallow: /login
+Disallow: /signup
+Disallow: /verify-email/
+Disallow: /resend-verification
+
+Sitemap: https://proscanner.com.pk/sitemap.xml

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — Pro Scanner</title>
+<link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="wrap" style="padding:40px 28px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:14px;">
+    <div>
+      <span class="section-tag">// ADMIN PANEL</span>
+      <h1 style="color:#fff; font-size:26px; margin-top:8px;">Users ({{ users|length }})</h1>
+    </div>
+    <a href="{{ url_for('admin_logout') }}" class="btn btn-ghost btn-sm">Logout</a>
+  </div>
+
+  <div class="market-table-wrap-admin">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Plan</th>
+          <th>Verified</th>
+          <th>Signed up (PKT)</th>
+          <th>Last login (PKT)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in users %}
+        <tr>
+          <td>{{ u.name }}</td>
+          <td class="mono">{{ u.email }}</td>
+          <td>
+            {% if u.plan %}
+              <span class="badge badge-long" style="text-transform:capitalize;">{{ u.plan }}</span>
+              <div style="font-size:11px; color:var(--text-faint); margin-top:4px;">since {{ u.plan_started_at | dt }}</div>
+            {% else %}
+              <span style="color:var(--text-faint);">—</span>
+            {% endif %}
+          </td>
+          <td>{{ '✅' if u.is_verified else '❌' }}</td>
+          <td class="mono" style="font-size:12.5px;">{{ u.created_at | pkt }}</td>
+          <td class="mono" style="font-size:12.5px;">{{ u.last_login_at | pkt }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>

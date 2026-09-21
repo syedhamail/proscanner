@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Signals — Pro Scanner{% endblock %}
+{% block description %}Run a live scan across the top USDT-M futures pairs. Rule-based long/short signals with entry price, stop-loss, take-profit and pattern confirmation.{% endblock %}
+{% set active = 'signals' %}
+
+{% block head_extra %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <span class="section-tag">// SIGNALS</span>
+    <h1>Pro Scanner</h1>
+    <p>Live scan across the top USDT-M futures pairs. Same rules, every time — trend on the 4H, entry trigger on the 15M, confirmation from support/resistance and pattern recognition.</p>
+  </div>
+</section>
+
+<div class="wrap scanner-shell">
+  <div class="scanner-header">
+    <div class="scanner-controls">
+      <select id="coinLimit">
+        <option value="20">Top 20</option>
+        <option value="50" selected>Top 50</option>
+        <option value="100">Top 100</option>
+        <option value="200">Top 200</option>
+      </select>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-primary" id="scanBtn">
+        <i class="fas fa-chart-bar"></i> Run Scan
+      </button>
+    </div>
+  </div>
+
+  <div class="scan-stats-grid" id="statsGrid">
+    <div class="scan-stat-card"><div class="label">Total Scanned</div><div class="value" id="totalCount">0</div></div>
+    <div class="scan-stat-card green"><div class="label">Long Signals</div><div class="value" id="longCount">0</div></div>
+    <div class="scan-stat-card red"><div class="label">Short Signals</div><div class="value" id="shortCount">0</div></div>
+    <div class="scan-stat-card"><div class="label">Avg Confidence</div><div class="value" id="avgConf">0%</div></div>
+  </div>
+
+  <div class="spinner" id="loadingSpinner">
+    <i class="fas fa-circle-notch"></i>
+    <p style="color: var(--text-faint); margin-top: 10px;">Fetching live data…</p>
+  </div>
+
+  <div class="scanner-table-wrap">
+    <table class="scanner-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Coin</th>
+          <th>Trend (4H)</th>
+          <th>Action</th>
+          <th>Entry Price</th>
+          <th>Stop Loss</th>
+          <th>Take Profit</th>
+          <th>Leverage</th>
+          <th>Confidence</th>
+          <th>Candle Pattern</th>
+          <th>Chart Pattern</th>
+          <th style="width: 30px;"></th>
+        </tr>
+      </thead>
+      <tbody id="resultsBody">
+        <tr><td colspan="12">
+          <div class="empty-state">
+            <i class="fas fa-search"></i>
+            <p>Click "Run Scan" to find current setups.</p>
+          </div>
+        </td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="scanner-disclaimer">
+    ⚠️ <strong>Disclaimer:</strong> 100% accuracy is impossible. This is a technical tool, not financial advice.
+    Always manage risk and never invest more than you can afford to lose.
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/signals.js') }}"></script>
+{% endblock %}

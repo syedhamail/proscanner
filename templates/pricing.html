@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block title %}Pricing — Pro Scanner{% endblock %}
+{% block description %}Basic, Advanced and Premium plans for Pro Scanner — from $3 for 25 scans every 7 days up to $100/year for unlimited futures scanning.{% endblock %}
+{% set active = 'pricing' %}
+
+{% block head_extra %}
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Pro Scanner Subscription",
+  "description": "Rule-based long/short futures trading signals with entry, stop-loss and take-profit levels.",
+  "brand": { "@type": "Brand", "name": "Pro Scanner" },
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic",
+      "price": "3",
+      "priceCurrency": "USD",
+      "url": "{{ canonical_url }}",
+      "description": "25 scans every 7 days"
+    },
+    {
+      "@type": "Offer",
+      "name": "Advanced",
+      "price": "10",
+      "priceCurrency": "USD",
+      "url": "{{ canonical_url }}",
+      "description": "100 scans every 30 days"
+    },
+    {
+      "@type": "Offer",
+      "name": "Premium",
+      "price": "100",
+      "priceCurrency": "USD",
+      "url": "{{ canonical_url }}",
+      "description": "Unlimited scans for 365 days"
+    }
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <span class="section-tag">// PRICING</span>
+    <h1>Pick the plan that matches how you trade.</h1>
+    <p>Every plan runs the same full-confirmation scan — indicators, candlesticks and chart patterns. The only difference is how often you can run it.</p>
+  </div>
+</section>
+
+<section style="padding-top:50px;">
+  <div class="wrap">
+    <div class="pricing-grid">
+
+      <div class="price-card reveal">
+        <div class="price-top">
+          <h3>Basic</h3>
+          <p class="price-tag"><span class="amount">$3</span><span class="cadence">/ 7 days</span></p>
+          <p class="price-blurb">For traders who want to try a full scan before committing to more.</p>
+        </div>
+        <ul class="price-features">
+          <li><span class="check">✓</span> 25 scans every 7 days</li>
+          <li><span class="check">✓</span> Full indicator + pattern confirmation</li>
+          <li><span class="check">✓</span> Entry, stop-loss &amp; take-profit on every signal</li>
+          <li><span class="check">✓</span> Cancel anytime</li>
+        </ul>
+        <button class="btn btn-ghost btn-plan" data-plan="basic" style="width:100%;">Choose Basic</button>
+      </div>
+
+      <div class="price-card price-card-featured reveal">
+        <div class="recommended-badge">Recommended</div>
+        <div class="price-top">
+          <h3>Advanced</h3>
+          <p class="price-tag"><span class="amount">$10</span><span class="cadence">/ month</span></p>
+          <p class="price-blurb">For active traders who scan the market daily and want real headroom.</p>
+        </div>
+        <ul class="price-features">
+          <li><span class="check">✓</span> 100 scans every 30 days</li>
+          <li><span class="check">✓</span> Full indicator + pattern confirmation</li>
+          <li><span class="check">✓</span> Priority access during high-volatility sessions</li>
+          <li><span class="check">✓</span> Cancel anytime</li>
+        </ul>
+        <button class="btn btn-primary btn-plan" data-plan="advanced" style="width:100%;">Choose Advanced</button>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-top">
+          <h3>Premium</h3>
+          <p class="price-tag"><span class="amount">$100</span><span class="cadence">/ year</span></p>
+          <p class="price-blurb">For full-time traders who don't want to think about limits at all.</p>
+        </div>
+        <ul class="price-features">
+          <li><span class="check">✓</span> Unlimited scans for a full year</li>
+          <li><span class="check">✓</span> Full indicator + pattern confirmation</li>
+          <li><span class="check">✓</span> Best value for daily use</li>
+          <li><span class="check">✓</span> Cancel anytime</li>
+        </ul>
+        <button class="btn btn-ghost btn-plan" data-plan="premium" style="width:100%;">Choose Premium</button>
+      </div>
+
+    </div>
+
+    <p class="price-footnote">Payments are processed securely by Paddle. Prices shown in USD.</p>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  window.PRO_SCANNER_AUTH = {{ 'true' if current_user.is_authenticated else 'false' }};
+  window.PRO_SCANNER_LOGIN_URL = "{{ url_for('login', next=url_for('pricing')) }}";
+  window.PRO_SCANNER_USER_ID = {{ current_user.id if current_user.is_authenticated else 'null' }};
+  window.PRO_SCANNER_USER_EMAIL = "{{ current_user.email if current_user.is_authenticated else '' }}";
+  window.PADDLE_CLIENT_TOKEN = "{{ paddle_client_token }}";
+  window.PADDLE_ENV = "{{ paddle_env }}";
+  window.PADDLE_PRICE_IDS = {{ paddle_price_ids | tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/pricing.js') }}"></script>
+{% endblock %}

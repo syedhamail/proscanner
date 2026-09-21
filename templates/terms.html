@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Terms & Conditions — Pro Scanner{% endblock %}
+{% block description %}Terms and conditions for using Pro Scanner's futures trading signal scanner and website.{% endblock %}
+{% set active = 'terms' %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <span class="section-tag">// LEGAL</span>
+    <h1>Terms &amp; Conditions</h1>
+    <p>Please read these terms carefully before using Pro Scanner.</p>
+  </div>
+</section>
+
+<div class="wrap doc-body">
+  <span class="updated">Last updated: September 18, 2026</span>
+
+  <h2>1. Acceptance of Terms</h2>
+  <p>By accessing or using the Pro Scanner website and its tools (collectively, the "Service"), you agree to be bound by these Terms &amp; Conditions ("Terms"). If you do not agree to these Terms, please do not use the Service.</p>
+
+  <h2>2. Description of Service</h2>
+  <p>Pro Scanner provides a technical-analysis tool that scans publicly available cryptocurrency futures market data and displays indicator-based, candlestick, and chart-pattern signals for informational purposes. The Service also allows users to create an account to access these tools.</p>
+
+  <h2>3. Not Financial Advice</h2>
+  <p>Nothing on this website constitutes financial, investment, legal, or tax advice. All signals, prices, statistics, and content are provided for informational and educational purposes only. You are solely responsible for any trading or investment decisions you make, and you should consult a licensed financial advisor before making such decisions.</p>
+
+  <h2>4. No Guarantee of Accuracy or Results</h2>
+  <p>Cryptocurrency markets are highly volatile and unpredictable. Pro Scanner does not guarantee the accuracy, completeness, or timeliness of any data or signal displayed on the Service, nor does it guarantee any particular trading outcome. Past performance of any strategy or signal is not indicative of future results.</p>
+
+  <h2>5. Assumption of Risk</h2>
+  <p>Trading cryptocurrencies, including with leverage, carries a substantial risk of loss and is not suitable for every investor. You acknowledge that you are using the Service at your own risk and that you could lose some or all of your invested capital.</p>
+
+  <h2>6. Third-Party Data</h2>
+  <p>Market data used to generate signals is sourced from publicly available cryptocurrency exchange APIs. Pro Scanner does not control the accuracy or availability of this third-party data.</p>
+
+  <h2>7. Accounts</h2>
+  <p>Creating an account requires a valid email address and password. You are responsible for keeping your login credentials confidential and for all activity under your account. Account information is stored securely in our database.</p>
+
+  <h2>8. Acceptable Use</h2>
+  <p>You agree not to misuse the Service, including but not limited to attempting to disrupt its infrastructure, scraping data at abusive rates, sharing your account, or using the Service for any unlawful purpose.</p>
+
+  <h2>9. Intellectual Property</h2>
+  <p>All content, branding, and code on this website, excluding third-party data, are the property of Pro Scanner and may not be reproduced without permission.</p>
+
+  <h2>10. Limitation of Liability</h2>
+  <p>To the fullest extent permitted by law, Pro Scanner and its operators shall not be liable for any direct, indirect, incidental, or consequential damages, including trading losses, arising from your use of the Service.</p>
+
+  <h2>11. Changes to These Terms</h2>
+  <p>We may update these Terms from time to time. Continued use of the Service after changes are posted constitutes your acceptance of the revised Terms.</p>
+
+  <h2>12. Contact</h2>
+  <p>If you have questions about these Terms, please reach out using the contact form on our <a href="{{ url_for('home') }}#contact" style="color:var(--accent)">homepage</a>.</p>
+</div>
+{% endblock %}

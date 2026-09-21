@@ -1,0 +1,13 @@
+{
+  "name": "Pro Scanner",
+  "short_name": "Pro Scanner",
+  "description": "Live rule-based long/short signals for USDT-M futures.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0E12",
+  "theme_color": "#0D0E12",
+  "icons": [
+    { "src": "/static/img/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/static/img/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — Pro Scanner{% endblock %}
+{% block robots %}noindex, nofollow{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="wrap">
+    <span class="section-tag">// DASHBOARD</span>
+    <h1>Welcome, {{ current_user.name.split(' ')[0] }}.</h1>
+    <p>Your account, plan and usage at a glance.</p>
+  </div>
+</section>
+
+<section style="padding-top:50px;">
+  <div class="wrap dashboard-grid">
+
+    <div class="dash-card reveal">
+      <h3>Account</h3>
+      <div class="dash-row"><span class="lbl">Name</span><span class="val">{{ current_user.name }}</span></div>
+      <div class="dash-row"><span class="lbl">Email</span><span class="val">{{ current_user.email }}</span></div>
+      <div class="dash-row">
+        <span class="lbl">Status</span>
+        <span class="val">
+          {% if current_user.is_verified %}
+            <span class="status-pill status-ok">Verified</span>
+          {% else %}
+            <span class="status-pill status-warn">Not verified</span>
+          {% endif %}
+        </span>
+      </div>
+      <div class="dash-row"><span class="lbl">Member since</span><span class="val">{{ current_user.created_at | dt }}</span></div>
+      {% if current_user.oauth_provider %}
+      <div class="dash-row"><span class="lbl">Signed in via</span><span class="val" style="text-transform:capitalize;">{{ current_user.oauth_provider }}</span></div>
+      {% endif %}
+    </div>
+
+    <div class="dash-card reveal">
+      <h3>Plan &amp; Usage</h3>
+      {% if not current_user.plan %}
+        <p class="dash-empty">You haven't chosen a plan yet.</p>
+        <a href="{{ url_for('pricing') }}" class="btn btn-primary" style="width:100%;">View Pricing</a>
+      {% else %}
+        <div class="dash-row"><span class="lbl">Current plan</span><span class="val" style="text-transform:capitalize;">{{ current_user.plan }}</span></div>
+        <div class="dash-row"><span class="lbl">Started</span><span class="val">{{ current_user.plan_started_at | dt }}</span></div>
+
+        {% if status.get('unlimited') %}
+          <div class="dash-row"><span class="lbl">Scans</span><span class="val">Unlimited</span></div>
+          <div class="dash-row"><span class="lbl">Plan renews / expires</span><span class="val">{{ status.expires_at | dt }}</span></div>
+        {% elif status.reason == 'plan_expired' %}
+          <div class="dash-row"><span class="lbl">Status</span><span class="val"><span class="status-pill status-warn">Expired</span></span></div>
+          <p class="dash-empty">Your plan expired on {{ status.expires_at | dt }}.</p>
+          <a href="{{ url_for('pricing') }}" class="btn btn-primary" style="width:100%;">Renew Plan</a>
+        {% else %}
+          <div class="dash-row"><span class="lbl">Scans used</span><span class="val">{{ status.used }} / {{ status.max_scans }}</span></div>
+          <div class="dash-row"><span class="lbl">Scans remaining</span><span class="val">{{ status.remaining }}</span></div>
+          <div class="usage-bar"><div class="fill" style="width: {{ (status.used / status.max_scans * 100) if status.max_scans else 0 }}%;"></div></div>
+          <div class="dash-row"><span class="lbl">Resets on</span><span class="val">{{ status.window_reset_at | dt }}</span></div>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    <div class="dash-card reveal">
+      <h3>Change Password</h3>
+      <form method="POST" action="{{ url_for('change_password') }}">
+        {% if current_user.password_hash %}
+        <div class="field">
+          <label for="current_password">Current password</label>
+          <input type="password" id="current_password" name="current_password" placeholder="••••••••">
+        </div>
+        {% else %}
+        <p class="dash-empty" style="margin-bottom:16px;">You signed up with {{ current_user.oauth_provider }} — set a password here to also log in with email.</p>
+        {% endif %}
+        <div class="field">
+          <label for="new_password">New password</label>
+          <input type="password" id="new_password" name="new_password" placeholder="At least 6 characters" minlength="6">
+        </div>
+        <div class="field">
+          <label for="confirm_password">Confirm new password</label>
+          <input type="password" id="confirm_password" name="confirm_password" placeholder="Repeat new password" minlength="6">
+        </div>
+        <button type="submit" class="btn btn-ghost" style="width:100%;">Update Password</button>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="wrap" style="margin-top:36px;">
+    <a href="{{ url_for('logout') }}" class="btn btn-ghost" style="border-color:var(--sell); color:var(--sell);">Logout</a>
+  </div>
+</section>
+{% endblock %}
