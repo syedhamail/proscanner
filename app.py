@@ -240,7 +240,7 @@ def send_verification_email(user):
         return
 
     try:
-        requests.post(
+        r = requests.post(
             "https://api.resend.com/emails",
             headers={"Authorization": f"Bearer {RESEND_API_KEY}", "Content-Type": "application/json"},
             json={
@@ -251,6 +251,8 @@ def send_verification_email(user):
             },
             timeout=10,
         )
+        if r.status_code >= 300:
+            print(f"[RESEND ERROR] Verification email to {user.email} failed: status={r.status_code} body={r.text}")
     except Exception as e:
         print(f"[WARN] Could not send verification email: {e}")
 
