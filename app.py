@@ -33,6 +33,13 @@ app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-secret-change-me")
 db_url = (os.environ.get("DATABASE_URL") or "").strip() or "sqlite:///local.db"
 if db_url.startswith("postgres://"):
     db_url = db_url.replace("postgres://", "postgresql://", 1)
+# Force the psycopg2 driver explicitly (that's what's in requirements.txt) —
+# without this, SQLAlchemy/some providers' connection strings can resolve to
+# the newer "psycopg" (v3) dialect, which isn't installed and fails at boot.
+if db_url.startswith("postgresql://"):
+    db_url = db_url.replace("postgresql://", "postgresql+psycopg2://", 1)
+elif db_url.startswith("postgresql+psycopg://"):
+    db_url = db_url.replace("postgresql+psycopg://", "postgresql+psycopg2://", 1)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
