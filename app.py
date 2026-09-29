@@ -624,6 +624,22 @@ def admin_logout():
     return redirect(url_for("admin"))
 
 
+@app.route("/admin/users/<int:user_id>/delete", methods=["POST"])
+def admin_delete_user(user_id):
+    if not session.get("is_admin"):
+        return redirect(url_for("admin"))
+
+    user = db.session.get(User, user_id)
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+        flash(f"Deleted user {user.email}.", "ok")
+    else:
+        flash("User not found.", "err")
+
+    return redirect(url_for("admin"))
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=True, host="0.0.0.0", port=port)
